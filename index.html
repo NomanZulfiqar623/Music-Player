@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <script src="https://kit.fontawesome.com/5dfde57118.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+    <div class="container">
+        <div class="music-player">
+        <nav>
+            <div class="circle">
+                <i class="fa-solid fa-angle-left"></i>
+            </div>
+            <div class="circle">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </nav>
+        <img src="./Images/istockphoto-1128247331-1024x1024.jpg" class="song-img">
+        <h1>Despacito</h1>
+        <p>Luis Fonsi Ft. Puerto Rican</p>
+        <audio controls id="song">
+            <source src="./Songs/Meri_Ankhon_Ko_Ankhon_Ka_-_Nusrat_Fateh_Ali_Khan_-_Top_Ghazal_Songs(256k).mp3" type="audio/mpeg">
+        </audio>
+        <input type="range" value="0" id="progress">
+        <div class="controls">
+            <div><i class="fa-solid fa-backward"></i></div>
+            <div onclick="playPause()"><i class="fa-solid fa-play" id="ctrlIcon"></i></div>
+            <div> <i class="fa-solid fa-forward"></i></div>
+        </div>
+        
+    </div>
+    </div>
+
+<!-- <script>
+    let progress = document.getElementById("progress");
+    let song = document.getElementById("song");
+    let ctrlIcons = document.getElementById("ctrlIcons");
+
+    song.onloadedmetadata = function () {
+        progress.max = song.duration; // Correctly set the max value to song.duration
+    };
+
+    function playPause() {
+        if(ctrlIcons.classList.contains("fa-pause")) {
+            song.pause();
+            ctrlIcons.classList.remove("fa-pause");
+            ctrlIcons.classList.add("fa-play");
+        } else {
+            song.play();
+            ctrlIcons.classList.add("fa-pause");
+            ctrlIcons.classList.remove("fa-play");
+        }
+    }
+</script> -->
+<!-- <script>
+    let progress = document.getElementById("progress");
+    let song = document.getElementById("song");
+    let ctrlIcons = document.getElementById("ctrlIcon");
+
+    song.onloadedmetadata = function () {
+        progress.max = song.duration;
+    };
+
+    function playPause() {
+        if(ctrlIcon.classList.contains("fa-pause")) {
+            song.pause();
+            ctrlIcon.classList.remove("fa-pause");
+            ctrlIcon.classList.add("fa-play");
+        } else {
+            song.play();
+            ctrlIcon.classList.add("fa-pause");
+            ctrlIcon.classList.remove("fa-play");
+        }
+    }
+
+if(song.play()){
+    setInterval(() => {
+        progress.value = song.currentTime;
+    }, 500);
+}
+
+song.play().then(() => {
+    setInterval(() => {
+        progress.value = song.currentTime;
+    }, 500);
+}).catch((error) => {
+    console.error('Error starting playback:', error);
+});
+
+progress.onhange = function(){
+    song.play();
+    song.currentTime = progress.value;
+    ctrlIcon.classList.add("fa-pause");
+    ctrlIcon.classList.remove("fa-play");
+}
+
+</script> -->
+
+<script>
+    let progress = document.getElementById("progress");
+    let song = document.getElementById("song");
+    let ctrlIcon = document.getElementById("ctrlIcon"); // Corrected ID
+
+    song.onloadedmetadata = function () {
+        progress.max = song.duration;
+    };
+
+    function playPause() {
+        if (ctrlIcon.classList.contains("fa-pause")) { // Corrected variable name
+            song.pause();
+            ctrlIcon.classList.remove("fa-pause");
+            ctrlIcon.classList.add("fa-play");
+        } else {
+            song.play().then(() => {
+                setInterval(() => {
+                    progress.value = song.currentTime;
+                }, 500);
+            }).catch((error) => {
+                console.error('Error starting playback:', error);
+            });
+            ctrlIcon.classList.add("fa-pause");
+            ctrlIcon.classList.remove("fa-play");
+        }
+    }
+
+    progress.onchange = function() {
+        song.currentTime = progress.value;
+        if (song.paused) {
+            song.play().then(() => {
+                ctrlIcon.classList.add("fa-pause");
+                ctrlIcon.classList.remove("fa-play");
+            }).catch((error) => {
+                console.error('Error starting playback:', error);
+            });
+        }
+    }
+</script>
+
+
+
+</body>
+</html>
